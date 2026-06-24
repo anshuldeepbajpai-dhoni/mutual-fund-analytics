@@ -1,25 +1,44 @@
-CREATE SCHEMA IF NOT EXISTS mutual_funds;
-
-CREATE TABLE mutual_funds.01_fund_master (
-    amfi_code BIGINT PRIMARY KEY,
-    fund_house VARCHAR(255),
-    scheme_name VARCHAR(500),
-    category VARCHAR(255),
-    sub_category VARCHAR(255),
-    plan VARCHAR(100),
-    launch_date DATE,
-    benchmark VARCHAR(500),
-    expense_ratio_pct NUMERIC(6,2),
-    exit_load_pct NUMERIC(6,2),
-    min_sip_amount NUMERIC(12,2),
-    min_lumpsum_amount NUMERIC(12,2),
-    fund_manager VARCHAR(255),
-    risk_category VARCHAR(100),
-    sebi_category_code VARCHAR(50)
+CREATE TABLE dim_fund (
+    amfi_code INTEGER PRIMARY KEY,
+    fund_house TEXT,
+    scheme_name TEXT,
+    category TEXT,
+    sub_category TEXT,
+    plan TEXT,
+    risk_category TEXT
 );
 
-CREATE TABLE mutual_funds.02_nav_history (
-    amfi_code BIGINT,
-    nav_date DATE,
-    nav NUMERIC(10,4)
+CREATE TABLE fact_nav (
+    nav_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    amfi_code INTEGER,
+    date DATE,
+    nav REAL,
+    FOREIGN KEY(amfi_code)
+    REFERENCES dim_fund(amfi_code)
+);
+
+CREATE TABLE fact_transactions (
+    transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    investor_id TEXT,
+    transaction_date DATE,
+    amfi_code INTEGER,
+    transaction_type TEXT,
+    amount_inr REAL
+);
+
+CREATE TABLE fact_performance (
+    performance_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    amfi_code INTEGER,
+    return_1yr_pct REAL,
+    return_3yr_pct REAL,
+    return_5yr_pct REAL,
+    expense_ratio_pct REAL,
+    aum_crore REAL
+);
+
+CREATE TABLE fact_aum (
+    aum_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date DATE,
+    fund_house TEXT,
+    aum_crore REAL
 );
