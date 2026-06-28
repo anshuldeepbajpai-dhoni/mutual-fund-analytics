@@ -142,10 +142,147 @@ This project focuses on analyzing India's mutual fund ecosystem using data engin
 * 15+ Visualizations
 * Exported PNG Charts
 
+
+# Day 4: Fund Performance Analytics
+
+## Objectives
+
+* Compute return and risk metrics for mutual fund schemes.
+* Compare fund performance against benchmark indices.
+* Evaluate risk-adjusted returns using financial analytics.
+* Generate a composite fund ranking system.
+
+## Performance Metrics Computed
+
+### Daily Returns
+
+Daily returns were calculated using:
+
+```python
+daily_return = (NAV_t / NAV_t-1) - 1
+```
+
+The distribution of daily returns was validated to identify outliers and understand volatility patterns.
+
+### CAGR Analysis
+
+Computed annualized returns for:
+
+* 1-Year CAGR
+* 3-Year CAGR
+* 5-Year CAGR
+
+Formula:
+
+```python
+CAGR = (NAV_end / NAV_start) ** (1 / years) - 1
+```
+
+### Sharpe Ratio
+
+Risk-adjusted returns were calculated using a risk-free rate of 6.5%.
+
+```python
+Sharpe = (Rp - Rf) / Std(Rp) × √252
+```
+
+Funds were ranked based on annualized Sharpe ratios.
+
+### Sortino Ratio
+
+Downside-risk-adjusted returns were computed using only negative return observations.
+
+```python
+Sortino = (Rp - Rf) / Downside_Std × √252
+```
+
+### Alpha and Beta
+
+Linear regression against NIFTY 100 benchmark returns was performed using SciPy.
+
+```python
+Fund Return = Alpha + Beta × Benchmark Return
+```
+
+Annualized Alpha:
+
+```python
+Alpha_Annual = Alpha × 252
+```
+
+### Maximum Drawdown
+
+Worst peak-to-trough declines were calculated using:
+
+```python
+Max Drawdown = NAV / Running_Max - 1
+```
+
+Date ranges corresponding to maximum drawdowns were also identified.
+
+### Fund Scorecard
+
+A composite score out of 100 was generated using weighted rankings:
+
+| Metric                     | Weight |
+| -------------------------- | ------ |
+| 3-Year CAGR                | 30%    |
+| Sharpe Ratio               | 25%    |
+| Alpha                      | 20%    |
+| Expense Ratio (Inverse)    | 15%    |
+| Maximum Drawdown (Inverse) | 10%    |
+
+### Benchmark Comparison
+
+The top five funds were compared with:
+
+* NIFTY 50
+* NIFTY 100
+
+Additional metrics:
+
+* Tracking Error
+* Relative Performance Charts
+* Normalized Growth Comparison
+
+## Deliverables
+
+* Performance_Analytics.ipynb
+* fund_scorecard.csv
+* alpha_beta.csv
+* top5_vs_benchmark.png
+
+## Key Findings
+
+### Return Performance
+
+* Several equity schemes delivered strong 3-year CAGR values and consistently outperformed benchmark indices.
+
+### Risk-Adjusted Returns
+
+* Funds with higher Sharpe and Sortino ratios demonstrated superior risk-adjusted performance.
+
+### Alpha Generation
+
+* A number of actively managed schemes generated positive alpha relative to NIFTY 100.
+
+### Market Sensitivity
+
+* Beta analysis revealed varying levels of market exposure across different fund categories.
+
+### Drawdown Analysis
+
+* Large-cap funds generally experienced lower maximum drawdowns compared to mid-cap and small-cap schemes.
+
+### Composite Rankings
+
+* The fund scorecard provided a balanced evaluation framework incorporating returns, risk, costs, and downside protection.
+
 ---
 
-## Project Structure
+## Updated Project Structure
 
+```text
 mutual-fund-analytics/
 │
 ├── data/
@@ -162,6 +299,8 @@ mutual-fund-analytics/
 │   │   └── 10_benchmark_indices.csv
 │   │
 │   └── processed/
+│       ├── 01_fund_master_clean.csv
+│       ├── 02_nav_history_clean.csv
 │       ├── 03_aum_by_fund_house_clean.csv
 │       ├── 04_monthly_sip_inflows_clean.csv
 │       ├── 05_category_inflows_clean.csv
@@ -172,38 +311,67 @@ mutual-fund-analytics/
 │       └── 10_benchmark_indices_clean.csv
 │
 ├── database/
-│   ├── mutual_fund.db
+│   └── bluestock_mf.db
+│
+├── sql/
 │   ├── schema.sql
 │   └── queries.sql
 │
 ├── notebooks/
 │   ├── Day1_Data_Ingestion.ipynb
 │   ├── Day2_Data_Cleaning.ipynb
-│   └── EDA_Analysis.ipynb
+│   ├── EDA_Analysis.ipynb
+│   └── Performance_Analytics.ipynb
+│
+├── scripts/
+│   ├── check_columns.py
+│   ├── clean_data.py
+│   ├── create_db.py
+│   ├── data_ingestion.py
+│   ├── live_nav_fetch.py
+│   ├── load_data.py
+│   ├── test_db.py
+│   ├── validation.py
 │
 ├── charts/
-│   ├── nav_trend.png
-│   ├── sip_trend.png
+│   ├── age_distribution.png
+│   ├── aum_growth
+│   ├── benchmark_trend.png
 │   ├── category_heatmap.png
+│   ├── correlation_matrix.png
+│   ├── daily_distribution.png
 │   ├── folio_growth.png
-│   ├── state_transactions.png
-│   ├── t30_b30_distribution.png
+│   ├── gender_distribution.png
+│   ├── nav_trend.png
+│   ├── risk_return.png
 │   ├── sector_allocation.png
-│   ├── sector_concentration_hhi.png
-│   ├── sharpe_ratio.png
-│   ├── var_cvar.png
-│   ├── fund_vs_benchmark.png
-│   ├── investor_cohort_sip.png
-│   ├── correlation_heatmap.png
-│   └── risk_return_bubble.png
+│   ├── nav_trend.png
+│   ├── sector_market_value.png
+│   ├── sip_boxplot.png
+│   ├── sip_trend.png
+│   ├── sip_trend2.png
+│   ├── state_transactions.png
+│   ├── stock_price_dist.png
+│   ├── t30_b30.png
+│   ├── top_holdings.png
+│   └──top5_vs_benchmark.png
+│
+├── outputs/
+│   ├── fund_scorecard.csv
+│   └── alpha_beta.csv
 │
 ├── reports/
-│   ├── Data_Quality_Report.md
-│   └── EDA_Findings.md
+│   ├── day1_summary.md
+│   ├── day2_summary.md
+│   ├── Data_dictionary.md
+│   ├── EDA_findings.md
+│   └── Fund_Performance_Analytics.md
 │
 ├── requirements.txt
 ├── README.md
 └── .gitignore
+```
+
 
 ---
 
