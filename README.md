@@ -280,6 +280,109 @@ Additional metrics:
 
 ---
 
+## Day 5: Power BI Dashboard
+
+An interactive Power BI dashboard was developed to analyze the Indian mutual fund industry using cleaned and integrated datasets. The dashboard consists of four pages with multiple visualizations, filters, tooltips, drill-through functionality, and hierarchical navigation.
+
+### Page 1: Industry Overview
+
+* KPI Cards: Total AUM, SIP Inflows, Total Folios, Total Schemes
+* Industry AUM Growth Trend (2022–2025)
+* Top Fund Houses by AUM
+* Interactive tooltips and cross-filtering
+
+###  Page 2: Fund Performance
+
+* Risk vs Return Scatter Plot
+* NAV Trend Analysis
+* Fund Performance Scorecard Table
+* Slicers for Scheme Name, Fund House, Category, and Plan
+* Drill-through support for detailed fund analysis
+
+###  Page 3: Investor Analysis
+
+* Transaction Volume by Type
+* State-wise Investment Distribution Map
+* Average Investment by Age Group
+* Monthly Transaction Trend
+* Filters for State, Gender, Age Group, and City Tier
+
+###  Page 4: SIP & Market Trends
+
+* SIP Inflows vs Market Performance (Dual-Axis Chart)
+* Top 5 Category Inflows
+* YoY SIP Growth KPI
+* Filters for Date Range, Category, and Market Indices
+
+---
+
+## 🔗 Data Model & Hierarchy Structure
+
+### Dataset Relationships
+
+```text
+fund_master (amfi_code)
+├── fund_performance (amfi_code)
+├── nav_history (amfi_code)
+└── amc_aum (fund_house)
+
+monthly_sip_inflows (month)
+└── benchmark_indices (month)
+
+investor_transactions (date)
+└── monthly_sip_inflows (month)
+```
+
+### Drill-Down Hierarchies
+
+```text
+Date Hierarchy
+Year
+└── Quarter
+    └── Month
+        └── Day
+
+Category Hierarchy
+Category
+└── Sub-Category
+
+Fund Hierarchy
+Fund House
+└── Scheme Name
+    └── Plan Type
+```
+
+### Dashboard Navigation Structure
+
+```text
+Mutual Fund Dashboard
+├── Page 1: Industry Overview
+├── Page 2: Fund Performance
+│   └── Drill-through: Fund NAV Details
+├── Page 3: Investor Analysis
+└── Page 4: SIP & Market Trends
+```
+
+---
+
+## Dashboard Features
+
+* Interactive slicers and cross-filtering
+* Tooltips on all major visualizations
+* Drill-through navigation for fund details
+* Date and category hierarchies for drill-down analysis
+* Bluestock branding and custom theme
+* Exported in PBIX, PDF, and PNG formats
+
+## Deliverables
+
+* `bluestock_mf_dashboard.pbix`
+* `Dashboard.pdf`
+* `Dashboard_Page_01.png`
+* `Dashboard_Page_02.png`
+* `Dashboard_Page_03.png`
+* `Dashboard_Page_04.png`
+
 ## Updated Project Structure
 
 ```text
@@ -316,7 +419,15 @@ mutual-fund-analytics/
 ├── sql/
 │   ├── schema.sql
 │   └── queries.sql
-│
+│ 
+├── dashboard/
+│   ├── bluestock_mf_dashboard.pbix
+│   ├── Dashboard_Page_01.png
+│   ├── Dashboard_Page_02.png
+│   ├── Dashboard_Page_03.png
+│   ├── Dashboard_Page_04.png
+│   └── Dashboard.pdf
+│ 
 ├── notebooks/
 │   ├── Day1_Data_Ingestion.ipynb
 │   ├── Day2_Data_Cleaning.ipynb
@@ -357,8 +468,13 @@ mutual-fund-analytics/
 │   └──top5_vs_benchmark.png
 │
 ├── outputs/
-│   ├── fund_scorecard.csv
-│   └── alpha_beta.csv
+│   ├── cagr_analysis.csv
+│   ├── sharpe_ratio.csv
+│   ├── sortino_ratio.csv
+│   ├── alpha_beta.csv
+│   ├── max_drawdown.csv
+│   ├── tracking_error.csv
+│   └── fund_scorecard.csv
 │
 ├── reports/
 │   ├── day1_summary.md
