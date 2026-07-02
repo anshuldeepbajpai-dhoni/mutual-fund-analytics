@@ -1,464 +1,18 @@
-# Mutual Fund Analytics Capstone
+# Bluestock Mutual Fund Analytics/Capstone Program
 
-## Project Overview
-
-This project focuses on analyzing India's mutual fund ecosystem using data engineering, exploratory data analysis, and performance analytics techniques. The objective is to derive actionable insights from NAV, AUM, SIP, folio, portfolio holdings, and benchmark datasets.
+An end-to-end fintech analytics project developed as part of the **Bluestock Fintech Data Analyst Capstone Program**. The project builds a complete mutual fund analytics ecosystem, including ETL pipelines, SQL database design, exploratory data analysis, performance and risk metrics, advanced analytics, and an interactive Power BI dashboard.
 
 ---
 
-## Tech Stack
-
-* Python
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Plotly
-* Jupyter Notebook
-* Git & GitHub
-
----
-
-# Day 1: Data Collection & Ingestion
-
-## Objectives
-
-* Collect mutual fund datasets from multiple sources.
-* Organize raw data into a structured project directory.
-* Create a reproducible data pipeline.
-
-## Tasks Completed
-
-* Downloaded and organized all required datasets.
-* Created project folder structure.
-* Added raw datasets to the repository.
-* Initialized Git and GitHub version control.
-
-## Deliverables
-
-* Raw CSV datasets
-* Project directory structure
-* Initial documentation
-
----
-
-# Day 2: Data Cleaning & Preprocessing
-
-## Objectives
-
-* Clean and standardize all datasets.
-* Handle missing values and duplicates.
-* Convert date columns into proper datetime formats.
-* Export processed datasets for analysis.
-
-## Tasks Completed
-
-* Removed duplicate records.
-* Handled missing values using appropriate techniques.
-* Standardized column names and formats.
-* Converted date fields to datetime objects.
-* Exported cleaned datasets.
-
-## Processed Files
-
-* 03_aum_by_fund_house_clean.csv
-* 04_monthly_sip_clean.csv
-* 05_category_inflows_clean.csv
-* 06_industry_folio_count_clean.csv
-* 07_scheme_performance_clean.csv
-* 08_investor_transactions_clean.csv
-* 09_portfolio_holdings_clean.csv
-* 10_benchmark_indices_clean.csv
-
-## Deliverables
-
-* Data_Cleaning.ipynb
-* Cleaned CSV files
-* Data quality report
-
----
-
-# Day 3: Exploratory Data Analysis (EDA)
-
-## Objectives
-
-* Perform exploratory analysis on mutual fund datasets.
-* Identify market trends and investment patterns.
-* Analyze fund performance and risk metrics.
-* Generate publication-quality visualizations.
-
-## Visualizations Created
-
-* NAV Trend Analysis
-* SIP Inflow Trend
-* Category Inflow Heatmap
-* MF Folio Growth Analysis
-* State-wise Transaction Distribution
-* T30 vs B30 Contribution Analysis
-* Sector Allocation Donut Chart
-* Sector Concentration (HHI) Analysis
-* Rolling 90-Day Sharpe Ratio
-* VaR vs CVaR Risk Analysis
-* Risk vs Return Bubble Plot
-* Fund vs Benchmark Comparison
-* Daily Return Correlation Heatmap
-* Investor Cohort SIP Analysis
-* Top Holdings and Portfolio Analytics
-
-## Key Findings
-
-### Industry Growth
-
-* Total mutual fund folios increased from 13.26 crore to 26.12 crore between 2022 and 2025.
-
-### SIP Trends
-
-* Monthly SIP inflows showed consistent growth, indicating increasing investor participation.
-
-### Geographic Insights
-
-* T30 cities contributed approximately 65.9% of total investments, while B30 cities contributed 34.1%.
-
-### Sector Allocation
-
-* Banking, IT, Pharma, and Automobile sectors dominated portfolio allocations.
-
-### Risk Analysis
-
-* Small-cap and mid-cap funds delivered higher returns but exhibited greater volatility and downside risk.
-
-### Benchmark Performance
-
-* Several actively managed funds outperformed NIFTY 50 and NIFTY 100 benchmarks over the study period.
-
-### Diversification
-
-* Correlation analysis demonstrated moderate diversification opportunities across fund categories.
-
-## Deliverables
-
-* EDA_Analysis.ipynb
-* EDA Findings Summary
-* 15+ Visualizations
-* Exported PNG Charts
-
-
-# Day 4: Fund Performance Analytics
-
-## Objectives
-
-* Compute return and risk metrics for mutual fund schemes.
-* Compare fund performance against benchmark indices.
-* Evaluate risk-adjusted returns using financial analytics.
-* Generate a composite fund ranking system.
-
-## Performance Metrics Computed
-
-### Daily Returns
-
-Daily returns were calculated using:
-
-```python
-daily_return = (NAV_t / NAV_t-1) - 1
-```
-
-The distribution of daily returns was validated to identify outliers and understand volatility patterns.
-
-### CAGR Analysis
-
-Computed annualized returns for:
-
-* 1-Year CAGR
-* 3-Year CAGR
-* 5-Year CAGR
-
-Formula:
-
-```python
-CAGR = (NAV_end / NAV_start) ** (1 / years) - 1
-```
-
-### Sharpe Ratio
-
-Risk-adjusted returns were calculated using a risk-free rate of 6.5%.
-
-```python
-Sharpe = (Rp - Rf) / Std(Rp) × √252
-```
-
-Funds were ranked based on annualized Sharpe ratios.
-
-### Sortino Ratio
-
-Downside-risk-adjusted returns were computed using only negative return observations.
-
-```python
-Sortino = (Rp - Rf) / Downside_Std × √252
-```
-
-### Alpha and Beta
-
-Linear regression against NIFTY 100 benchmark returns was performed using SciPy.
-
-```python
-Fund Return = Alpha + Beta × Benchmark Return
-```
-
-Annualized Alpha:
-
-```python
-Alpha_Annual = Alpha × 252
-```
-
-### Maximum Drawdown
-
-Worst peak-to-trough declines were calculated using:
-
-```python
-Max Drawdown = NAV / Running_Max - 1
-```
-
-Date ranges corresponding to maximum drawdowns were also identified.
-
-### Fund Scorecard
-
-A composite score out of 100 was generated using weighted rankings:
-
-| Metric                     | Weight |
-| -------------------------- | ------ |
-| 3-Year CAGR                | 30%    |
-| Sharpe Ratio               | 25%    |
-| Alpha                      | 20%    |
-| Expense Ratio (Inverse)    | 15%    |
-| Maximum Drawdown (Inverse) | 10%    |
-
-### Benchmark Comparison
-
-The top five funds were compared with:
-
-* NIFTY 50
-* NIFTY 100
-
-Additional metrics:
-
-* Tracking Error
-* Relative Performance Charts
-* Normalized Growth Comparison
-
-## Deliverables
-
-* Performance_Analytics.ipynb
-* fund_scorecard.csv
-* alpha_beta.csv
-* top5_vs_benchmark.png
-
-## Key Findings
-
-### Return Performance
-
-* Several equity schemes delivered strong 3-year CAGR values and consistently outperformed benchmark indices.
-
-### Risk-Adjusted Returns
-
-* Funds with higher Sharpe and Sortino ratios demonstrated superior risk-adjusted performance.
-
-### Alpha Generation
-
-* A number of actively managed schemes generated positive alpha relative to NIFTY 100.
-
-### Market Sensitivity
-
-* Beta analysis revealed varying levels of market exposure across different fund categories.
-
-### Drawdown Analysis
-
-* Large-cap funds generally experienced lower maximum drawdowns compared to mid-cap and small-cap schemes.
-
-### Composite Rankings
-
-* The fund scorecard provided a balanced evaluation framework incorporating returns, risk, costs, and downside protection.
-
----
-
-## Day 5: Power BI Dashboard
-
-An interactive Power BI dashboard was developed to analyze the Indian mutual fund industry using cleaned and integrated datasets. The dashboard consists of four pages with multiple visualizations, filters, tooltips, drill-through functionality, and hierarchical navigation.
-
-### Page 1: Industry Overview
-
-* KPI Cards: Total AUM, SIP Inflows, Total Folios, Total Schemes
-* Industry AUM Growth Trend (2022–2025)
-* Top Fund Houses by AUM
-* Interactive tooltips and cross-filtering
-
-###  Page 2: Fund Performance
-
-* Risk vs Return Scatter Plot
-* NAV Trend Analysis
-* Fund Performance Scorecard Table
-* Slicers for Scheme Name, Fund House, Category, and Plan
-* Drill-through support for detailed fund analysis
-
-###  Page 3: Investor Analysis
-
-* Transaction Volume by Type
-* State-wise Investment Distribution Map
-* Average Investment by Age Group
-* Monthly Transaction Trend
-* Filters for State, Gender, Age Group, and City Tier
-
-###  Page 4: SIP & Market Trends
-
-* SIP Inflows vs Market Performance (Dual-Axis Chart)
-* Top 5 Category Inflows
-* YoY SIP Growth KPI
-* Filters for Date Range, Category, and Market Indices
-
----
-
-## 🔗 Data Model & Hierarchy Structure
-
-### Dataset Relationships
-
-```text
-fund_master (amfi_code)
-├── fund_performance (amfi_code)
-├── nav_history (amfi_code)
-└── amc_aum (fund_house)
-
-monthly_sip_inflows (month)
-└── benchmark_indices (month)
-
-investor_transactions (date)
-└── monthly_sip_inflows (month)
-```
-
-### Drill-Down Hierarchies
-
-```text
-Date Hierarchy
-Year
-└── Quarter
-    └── Month
-        └── Day
-
-Category Hierarchy
-Category
-└── Sub-Category
-
-Fund Hierarchy
-Fund House
-└── Scheme Name
-    └── Plan Type
-```
-
-### Dashboard Navigation Structure
-
-```text
-Mutual Fund Dashboard
-├── Page 1: Industry Overview
-├── Page 2: Fund Performance
-│   └── Drill-through: Fund NAV Details
-├── Page 3: Investor Analysis
-└── Page 4: SIP & Market Trends
-```
-
----
-
-## Dashboard Features
-
-* Interactive slicers and cross-filtering
-* Tooltips on all major visualizations
-* Drill-through navigation for fund details
-* Date and category hierarchies for drill-down analysis
-* Bluestock branding and custom theme
-* Exported in PBIX, PDF, and PNG formats
-
-## Deliverables
-
-* `bluestock_mf_dashboard.pbix`
-* `Dashboard.pdf`
-* `Dashboard_Page_01.png`
-* `Dashboard_Page_02.png`
-* `Dashboard_Page_03.png`
-* `Dashboard_Page_04.png`
-
-## Day 6: Advanced Analytics
-
-### Objectives
-
-The Advanced Analytics module focuses on risk assessment, investor behavior analysis, portfolio concentration, and fund recommendation techniques.
-
-### Tasks Completed
-
-#### 1. Historical VaR (95%) and CVaR Analysis
-
-* Computed 95% Historical Value at Risk (VaR) for all mutual fund schemes.
-* Calculated Conditional Value at Risk (CVaR) to measure average losses beyond the VaR threshold.
-* Generated `var_cvar_report.csv`.
-
-#### 2. Rolling 90-Day Sharpe Ratio
-
-* Calculated rolling Sharpe ratios using a 90-day window.
-* Annualized the metric using √252 trading days.
-* Visualized the performance trends for five selected funds.
-* Generated `rolling_sharpe_chart.png`.
-
-#### 3. Investor Cohort Analysis
-
-* Grouped investors according to their first transaction year.
-* Computed average investment amount and total invested amount for each cohort.
-* Identified the most preferred fund within each cohort.
-* Generated `cohort_analysis.csv`.
-
-#### 4. SIP Continuity Analysis
-
-* Analyzed investors with six or more SIP transactions.
-* Calculated average gaps between consecutive SIP investments.
-* Flagged investors with average gaps greater than 35 days as "At-Risk".
-* Generated `sip_continuity_report.csv`.
-
-#### 5. Fund Recommendation System
-
-* Developed a Python-based recommendation engine (`recommender.py`).
-* Accepts Low, Moderate, and High risk appetite as input.
-* Recommends the top three funds based on Sharpe Ratio.
-
-#### 6. Sector Concentration Analysis (HHI)
-
-* Calculated the Herfindahl-Hirschman Index (HHI) for portfolio concentration analysis.
-* Identified highly concentrated and diversified funds.
-* Generated:
-
-  * `sector_hhi_report.csv`
-  * `sector_hhi_comparison.png`
-
-#### 7. Advanced Insights
-
-* Documented key findings related to risk, investor behavior, SIP continuity, and portfolio diversification.
-* Generated `advanced_insights.md`.
-
-### Files Generated
-
-```text
-notebooks/
-└── Advanced_Analytics.ipynb
-
-scripts/
-└── recommender.py
-
-reports/
-├── advanced_insights.md
-├── cohort_analysis.csv
-├── sector_hhi_report.csv
-├── sip_continuity_report.csv
-└── var_cvar_report.csv
-
-charts/
-├── rolling_sharpe_chart.png
-└── sector_hhi_comparison.png
-```
-
+## Project Objective
+
+The objective of this project is to create a data-driven mutual fund analytics platform that helps investors and analysts:
+
+- Compare fund performance using risk-adjusted metrics.
+- Track industry trends in AUM, SIP inflows, and folio growth.
+- Analyze investor demographics and transaction behavior.
+- Evaluate funds against benchmark indices.
+- Generate actionable insights through dashboards and advanced analytics.
 
 ## Updated Project Structure
 
@@ -494,6 +48,10 @@ mutual-fund-analytics/
 │   └── bluestock_mf.db
 │
 ├── sql/
+│   ├── schema.sql
+│   └── queries.sql
+│
+├── Final_Submission/
 │   ├── schema.sql
 │   └── queries.sql
 │ 
@@ -577,7 +135,6 @@ mutual-fund-analytics/
 └── .gitignore
 ```
 
-
 ---
 
 ## Author
@@ -585,3 +142,338 @@ mutual-fund-analytics/
 **Anshul Deep Bajpai**
 B.Tech (CSE - AI & ML)
 MG Institute of Management and Technology, Lucknow
+
+
+
+
+## 📈 Dataset Overview
+
+| Dataset | Records |
+|----------|----------|
+| Fund Master | 40 |
+| NAV History | 46,000 |
+| AUM by Fund House | 90 |
+| Monthly SIP Inflows | 48 |
+| Category Inflows | 144 |
+| Industry Folio Count | 21 |
+| Scheme Performance | 40 |
+| Investor Transactions | 32,778 |
+| Portfolio Holdings | 322 |
+| Benchmark Indices | 8,050 |
+
+### Key Statistics
+
+- **40 Mutual Fund Schemes**
+- **10 Fund Houses**
+- **46K NAV Records**
+- **32.8K Transactions**
+- **5,000 Investors**
+- **4.5 Years of Historical Data**
+
+---
+
+## ⚙️ Technology Stack
+
+### Programming & Analytics
+- Python
+- Pandas
+- NumPy
+- SciPy
+- Scikit-Learn
+
+### Database
+- SQLite
+- SQL
+
+### Visualization
+- Matplotlib
+- Seaborn
+- Power BI
+
+### Development Tools
+- Jupyter Notebook
+- VS Code
+- Git & GitHub
+
+---
+
+## 🔄 ETL Pipeline
+
+The ETL workflow follows:
+
+```text
+Extract → Transform → Load → Analyse → Visualise
+```
+
+### Extract
+- Load 10 raw CSV datasets
+- Validate schema and datatypes
+
+### Transform
+- Handle missing values
+- Forward-fill NAV data for non-trading days
+- Standardize categorical variables
+- Validate business rules
+
+### Load
+- Store cleaned data in:
+  - Processed CSV files
+  - SQLite database
+
+### Analyse
+Compute:
+
+- CAGR
+- Sharpe Ratio
+- Sortino Ratio
+- Alpha
+- Beta
+- Maximum Drawdown
+- VaR
+- CVaR
+- Composite Fund Score
+
+---
+
+## 🗄️ Database Design
+
+The project uses a **Star Schema**:
+
+### Dimension Table
+- dim_fund
+
+### Fact Tables
+- fact_nav
+- fact_transactions
+- fact_performance
+- fact_portfolio
+- fact_aum
+- fact_sip_industry
+- fact_category_inflows
+- fact_folio_count
+- fact_benchmark
+
+Indexes are created on:
+
+- amfi_code
+- date
+
+for efficient querying.
+
+---
+
+## 🔍 Exploratory Data Analysis
+
+The EDA notebook contains **16 analytical visualizations**, including:
+
+### Industry Analysis
+- AUM Growth by Fund House
+- Monthly SIP Trends
+- Folio Growth
+
+### Fund Analysis
+- NAV Trends
+- Return Correlation Heatmaps
+- Category-wise Inflows
+
+### Investor Analysis
+- Age Group Distribution
+- SIP Amount Analysis
+- Geographic Distribution
+- T30 vs B30 Analysis
+
+### Portfolio Analysis
+- Sector Allocation
+- Concentration Risk
+
+---
+
+## 📊 Performance Analytics
+
+The project computes:
+
+| Metric | Description |
+|----------|-------------|
+| CAGR | Annualized Growth Rate |
+| Sharpe Ratio | Risk-Adjusted Return |
+| Sortino Ratio | Downside Risk Measure |
+| Alpha | Excess Return vs Benchmark |
+| Beta | Market Sensitivity |
+| Maximum Drawdown | Worst Peak-to-Trough Decline |
+| VaR (95%) | Value at Risk |
+| CVaR | Conditional Value at Risk |
+
+---
+
+## 🏆 Composite Fund Scorecard
+
+The final score is calculated as:
+
+```text
+Score =
+30% × 3-Year Return
++ 25% × Sharpe Ratio
++ 20% × Alpha
++ 15% × Expense Ratio (Inverse)
++ 10% × Maximum Drawdown (Inverse)
+```
+
+### Top Ranked Fund
+
+**Kotak Flexicap Fund - Regular Growth**
+
+- Score: 71.8/100
+- 3-Year Return: 15.7%
+
+---
+
+## 🧠 Advanced Analytics
+
+The advanced analytics module includes:
+
+### Risk Analytics
+- Historical VaR (95%)
+- Conditional VaR (CVaR)
+- Rolling Sharpe Ratios
+
+### Investor Behaviour Analysis
+- Age Cohorts
+- City Tier Analysis
+- Income Group Analysis
+- Transaction Patterns
+
+### Recommendation System
+Risk-based fund recommendations:
+
+### Conservative
+- Debt Funds
+- Low Beta
+- Low Drawdown
+
+### Moderate
+- Hybrid Funds
+- Balanced Risk Profiles
+
+### Aggressive
+- Equity Funds
+- High CAGR
+- Higher Risk Tolerance
+
+---
+
+## 📊 Interactive Dashboard
+
+The Power BI dashboard consists of **4 pages**:
+
+### 1. Industry Overview
+- KPI Cards
+- AUM Trends
+- AMC Comparison
+
+### 2. Fund Performance
+- Return vs Risk Analysis
+- Composite Scorecard
+- NAV vs Benchmark
+
+### 3. Investor Analytics
+- Geographic Distribution
+- Demographics
+- Transaction Patterns
+
+### 4. SIP & Market Trends
+- SIP Inflows
+- Benchmark Movements
+- Category Inflows
+
+Every page includes interactive slicers for:
+
+- Fund House
+- Category
+- State
+- Age Group
+- City Tier
+
+---
+
+## 📌 Key Findings
+
+- SIP inflows reached **₹31,002 Cr** in Dec-2025.
+- Total mutual fund folios doubled from **13.26 Cr to 26.12 Cr**.
+- SBI Mutual Fund leads industry AUM with **₹12.5 Lakh Cr**.
+- Small-cap funds exhibit the highest volatility and VaR.
+- T30 cities contribute approximately **66%** of transaction volume.
+- Banking and IT dominate sector allocations.
+
+---
+
+## 🚀 How to Run
+
+### Clone Repository
+
+```bash
+git clone https://github.com/anshuldeepbajpai-dhoni/Bluestock-mutual-fund-analytics.git
+cd bluestock-mf-capstone
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run ETL Pipeline
+
+```bash
+python scripts/etl_pipeline.py
+```
+
+### Compute Metrics
+
+```bash
+python scripts/compute_metrics.py
+```
+
+### Run Recommender
+
+```bash
+python scripts/recommender.py
+```
+
+---
+
+## 📑 Deliverables
+
+| ID | Deliverable | Status |
+|----|-------------|---------|
+| D1 | ETL Pipeline | ✅ |
+| D2 | SQLite Database | ✅ |
+| D3 | EDA Analysis | ✅ |
+| D4 | Performance Metrics | ✅ |
+| D5 | Power BI Dashboard | ✅ |
+| D6 | Advanced Analytics | ✅ |
+| D7 | Final Report & Presentation | ✅ |
+
+---
+
+## 📚 Data Sources
+
+- AMFI India
+- mfapi.in
+- NSE India
+- BSE India
+
+All data is used strictly for educational purposes.
+
+---
+
+## 👨‍💻 Author
+
+**Anshul Deep Bajpai**  
+B.Tech (AI & ML) | MG Institute of Management & Technology, Lucknow  
+Data Analyst Intern – Bluestock Fintech
+
+---
+
+## ⚠️ Disclaimer
+
+This project is developed solely for educational and academic purposes. It does not constitute investment advice. Mutual fund investments are subject to market risks. Please read all scheme-related documents carefully before investing.
