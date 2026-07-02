@@ -515,8 +515,10 @@ mutual-fund-analytics/
 ├── scripts/
 │   ├── check_columns.py
 │   ├── clean_data.py
+│   ├── compute_metrics.py
 │   ├── create_db.py
 │   ├── data_ingestion.py
+│   ├── etl_pipeline.py
 │   ├── live_nav_fetch.py
 │   ├── load_data.py
 │   ├── recommender.py
