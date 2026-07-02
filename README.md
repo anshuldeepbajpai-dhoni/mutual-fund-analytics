@@ -383,6 +383,83 @@ Mutual Fund Dashboard
 * `Dashboard_Page_03.png`
 * `Dashboard_Page_04.png`
 
+## Day 6: Advanced Analytics
+
+### Objectives
+
+The Advanced Analytics module focuses on risk assessment, investor behavior analysis, portfolio concentration, and fund recommendation techniques.
+
+### Tasks Completed
+
+#### 1. Historical VaR (95%) and CVaR Analysis
+
+* Computed 95% Historical Value at Risk (VaR) for all mutual fund schemes.
+* Calculated Conditional Value at Risk (CVaR) to measure average losses beyond the VaR threshold.
+* Generated `var_cvar_report.csv`.
+
+#### 2. Rolling 90-Day Sharpe Ratio
+
+* Calculated rolling Sharpe ratios using a 90-day window.
+* Annualized the metric using √252 trading days.
+* Visualized the performance trends for five selected funds.
+* Generated `rolling_sharpe_chart.png`.
+
+#### 3. Investor Cohort Analysis
+
+* Grouped investors according to their first transaction year.
+* Computed average investment amount and total invested amount for each cohort.
+* Identified the most preferred fund within each cohort.
+* Generated `cohort_analysis.csv`.
+
+#### 4. SIP Continuity Analysis
+
+* Analyzed investors with six or more SIP transactions.
+* Calculated average gaps between consecutive SIP investments.
+* Flagged investors with average gaps greater than 35 days as "At-Risk".
+* Generated `sip_continuity_report.csv`.
+
+#### 5. Fund Recommendation System
+
+* Developed a Python-based recommendation engine (`recommender.py`).
+* Accepts Low, Moderate, and High risk appetite as input.
+* Recommends the top three funds based on Sharpe Ratio.
+
+#### 6. Sector Concentration Analysis (HHI)
+
+* Calculated the Herfindahl-Hirschman Index (HHI) for portfolio concentration analysis.
+* Identified highly concentrated and diversified funds.
+* Generated:
+
+  * `sector_hhi_report.csv`
+  * `sector_hhi_comparison.png`
+
+#### 7. Advanced Insights
+
+* Documented key findings related to risk, investor behavior, SIP continuity, and portfolio diversification.
+* Generated `advanced_insights.md`.
+
+### Files Generated
+
+```text
+notebooks/
+└── Advanced_Analytics.ipynb
+
+scripts/
+└── recommender.py
+
+reports/
+├── advanced_insights.md
+├── cohort_analysis.csv
+├── sector_hhi_report.csv
+├── sip_continuity_report.csv
+└── var_cvar_report.csv
+
+charts/
+├── rolling_sharpe_chart.png
+└── sector_hhi_comparison.png
+```
+
+
 ## Updated Project Structure
 
 ```text
@@ -429,8 +506,9 @@ mutual-fund-analytics/
 │   └── Dashboard.pdf
 │ 
 ├── notebooks/
-│   ├── Day1_Data_Ingestion.ipynb
-│   ├── Day2_Data_Cleaning.ipynb
+│   ├── Advanced_analytics.ipynb
+│   ├── day1_data_ingestion.ipynb
+│   ├── day2_data_cleaning.ipynb
 │   ├── EDA_Analysis.ipynb
 │   └── Performance_Analytics.ipynb
 │
@@ -441,8 +519,9 @@ mutual-fund-analytics/
 │   ├── data_ingestion.py
 │   ├── live_nav_fetch.py
 │   ├── load_data.py
+│   ├── recommender.py
 │   ├── test_db.py
-│   ├── validation.py
+│   └── validation.py
 │
 ├── charts/
 │   ├── age_distribution.png
@@ -455,8 +534,9 @@ mutual-fund-analytics/
 │   ├── gender_distribution.png
 │   ├── nav_trend.png
 │   ├── risk_return.png
+│   ├── rolling_sharpe_chart.png
 │   ├── sector_allocation.png
-│   ├── nav_trend.png
+│   ├── sector_hhi_comparison.png
 │   ├── sector_market_value.png
 │   ├── sip_boxplot.png
 │   ├── sip_trend.png
@@ -477,11 +557,18 @@ mutual-fund-analytics/
 │   └── fund_scorecard.csv
 │
 ├── reports/
+│   ├── Advanced_insights.md
 │   ├── day1_summary.md
 │   ├── day2_summary.md
 │   ├── Data_dictionary.md
 │   ├── EDA_findings.md
 │   └── Fund_Performance_Analytics.md
+│ 
+├── reports_adv_ana/
+│   ├── cohort_analysis.csv
+│   ├── sector_hhi_report.csv
+│   ├── sip_continuity_report.csv
+│   └── var_cvar_report.csv
 │
 ├── requirements.txt
 ├── README.md
