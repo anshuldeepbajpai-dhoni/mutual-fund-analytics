@@ -506,11 +506,11 @@ mutual-fund-analytics/
 │   └── Dashboard.pdf
 │ 
 ├── notebooks/
-│   ├── Advanced_analytics.ipynb
-│   ├── day1_data_ingestion.ipynb
-│   ├── day2_data_cleaning.ipynb
-│   ├── EDA_Analysis.ipynb
-│   └── Performance_Analytics.ipynb
+│   ├── 01_data_ingestion.ipynb
+│   ├── 02_data_cleaning.ipynb
+│   ├── 03_EDA_analysis.ipynb
+│   ├── 04_Performance_Analytics.ipynb
+│   └── 05_Advanced_analytics.ipynb
 │
 ├── scripts/
 │   ├── check_columns.py
