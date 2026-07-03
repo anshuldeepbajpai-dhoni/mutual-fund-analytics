@@ -137,14 +137,6 @@ mutual-fund-analytics/
 
 ---
 
-## Author
-
-**Anshul Deep Bajpai**
-B.Tech (CSE - AI & ML)
-MG Institute of Management and Technology, Lucknow
-
-
-
 
 ## 📈 Dataset Overview
 
